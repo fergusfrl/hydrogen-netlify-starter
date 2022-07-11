@@ -7,6 +7,7 @@ import {
   useServerAnalytics,
   useLocalization,
   useShopQuery,
+  useQuery,
 } from '@shopify/hydrogen';
 
 import {MEDIA_FRAGMENT, PRODUCT_CARD_FRAGMENT} from '~/lib/fragments';
@@ -28,6 +29,13 @@ export default function Homepage() {
     },
     preload: true,
   });
+
+  const {data: pokemon} = useQuery(['foo', 'bar'], async () => {
+    const res = await fetch('https://pokeapi.co/api/v2/pokemon/ditto');
+    return await res.json();
+  });
+
+  console.log('POKEMON:', pokemon);
 
   const {heroBanners, featuredCollections, featuredProducts} = data;
 
